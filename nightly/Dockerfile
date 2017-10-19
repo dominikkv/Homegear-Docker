@@ -2,7 +2,7 @@ FROM debian:stretch
 MAINTAINER Sathya Laufer <sathya@homegear.email>
 RUN apt-get update && apt-get -y install apt-transport-https apt-utils
 RUN apt-get update && apt-get -y install wget ca-certificates gnupg
-RUN apt-get update && apt-get -y install libreadline7 insserv procps ntp libenchant1c2a libltdl7 libmariadbclient18 libmcrypt4 libxml2 libxslt1.1 unzip p7zip-full libqdbm14 libssl1.1 libgnutlsxx28
+RUN apt-get update && apt-get -y install libreadline7 insserv procps ntp libenchant1c2a libltdl7 libmariadbclient18 libmcrypt4 libxml2 libxslt1.1 unzip p7zip-full libzip4 libqdbm14 libssl1.1 libgnutlsxx28 libmodbus5 python-lzo
 RUN wget https://homegear.eu/packages/Release.key && apt-key add Release.key && rm Release.key
 RUN echo 'deb https://homegear.eu/packages/Debian/ stretch/' >> /etc/apt/sources.list.d/homegear.list
 COPY installNightly.sh /installNightly.sh
@@ -13,7 +13,7 @@ RUN cp -R /var/lib/homegear /var/lib/homegear.data
 # Inspired by Dockerfile from visevision  
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN usermod -u 1002 homegear && groupmod -g 1002 homegear && find / -group 102 -exec chgrp -h homegear {} \; && find / -user 102 -exec chown -h homegear {} \;
+RUN usermod -u 1002 homegear && groupmod -g 1002 homegear
 
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
