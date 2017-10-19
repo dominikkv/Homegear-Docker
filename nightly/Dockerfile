@@ -13,6 +13,8 @@ RUN cp -R /var/lib/homegear /var/lib/homegear.data
 # Inspired by Dockerfile from visevision  
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN usermod -u 1002 homegear && groupmod -g 1002 homegear && find / -group 102 -exec chgrp -h homegear {} \; && find / -user 102 -exec chown -h homegear {} \;
+
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
 COPY start.sh /start.sh
