@@ -8,6 +8,9 @@ if ! [ "$(ls -A /var/lib/homegear)" ]; then
 	cp -R /var/lib/homegear.data/* /var/lib/homegear/
 fi
 
+cp -R /etc/homegear.config/devices/* /etc/homegear/devices/
+cp -R /var/lib/homegear.data/modules/* /var/lib/homegear/modules/
+
 if ! [ -f /etc/homegear/dh1024.pem ]; then
 	openssl genrsa -out /etc/homegear/homegear.key 2048
 	openssl req -batch -new -key /etc/homegear/homegear.key -out /etc/homegear/homegear.csr
@@ -21,5 +24,5 @@ if ! [ -f /etc/homegear/dh1024.pem ]; then
 fi
 
 service homegear start
-service homegear-influxdb start
+#service homegear-influxdb start
 tail -f /var/log/homegear/homegear.log
